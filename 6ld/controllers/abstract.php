@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Our abstract class for zM Ajax Login.
+ * Our abstract class for Ajax Login.
  *
  * This class is designed to reduce and factor out the shared details between our classes.
  * Thus allowing us to focus on as few concepts at a time.
@@ -35,7 +35,7 @@ abstract Class AjaxLogin {
      * Prints the meta tags template.
      */
     public function header(){
-        load_template( plugin_dir_path( dirname( __FILE__ ) ) . "views/meta-tags.php" );
+        // load_template( plugin_dir_path( dirname( __FILE__ ) ) . "views/meta-tags.php" );
     }
 
 

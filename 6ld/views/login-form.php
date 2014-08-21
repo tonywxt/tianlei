@@ -3,42 +3,74 @@
 /**
  * This is the template for our login form. It should contain as less logic as possible
  */
-
+wp_enqueue_style ( 'smart-form', plugins_url('../css/smart-forms.css', __FILE__));
+wp_enqueue_style ( 'smart-form-fontawesome', plugins_url('../css/font-awesome.min.css', __FILE__));
 ?>
-<!-- Login Form -->
-<div class="ajax-login-register-login-container">
-    <?php if ( is_user_logged_in() ) : ?>
-        <p><?php printf("%s <a href=%s title='%s'>%s</a>", __('You are already logged in','ajax_login_register'), wp_logout_url( site_url() ), __('Logout','ajax_login_register'), __('Logout','ajax_login_register') );?></p>
-    <?php else : ?>
-        <form action="javascript://" class="ajax-login-default-form-container login_form <?php print get_option('ajax_login_register_default_style'); ?>">
-            <?php if ( get_option('ajax_login_register_facebook') && get_option('users_can_register') ) : ?>
-                <div class="fb-login-container">
-                    <a href="#" class="fb-login"><img src="<?php print plugin_dir_url( dirname( __FILE__ ) ); ?>assets/images/fb-login-button.png" /></a>
-                </div>
-            <?php endif; ?>
-            <div class="form-wrapper">
-                <?php
-                wp_nonce_field( 'facebook-nonce', 'facebook_security' );
-                wp_nonce_field( 'login_submit', 'security' );
-                ?>
-                <div class="ajax-login-register-status-container">
-                    <div class="ajax-login-register-msg-target"></div>
-                </div>
-                <div class="noon"><label><?php _e('User Name','ajax_login_register'); ?></label><input type="text" name="user_login" size="30" required /></div>
-                <div class="noon"><label><?php _e('Password','ajax_login_register'); ?></label><input type="password" name="password" size="30" required /></div>
-                <div class="noon"><a href="#" class="not-a-member-handle"><?php echo apply_filters( 'ajax_login_not_a_member_text', __('Are you a member?','ajax_login_register') ); ?></a></div>
-                <?php
-                $keep_logged_in = get_option('ajax_login_register_keep_me_logged_in');
-                if ( $keep_logged_in != "on") : ?>
-                    <input type="checkbox" name="rememberme" />
-                    <span class="meta"><?php _e('Keep me logged in','ajax_login_register'); ?></span>
-                <?php endif; ?>
-                <span class="meta">| <a href="<?php echo wp_lostpassword_url(); ?>" title="<?php _e('Forgot Password','ajax_login_register' ); ?>"><?php _e('Forgot Password','ajax_login_register'); ?></a></span>
-                <div class="button-container">
-                    <input class="login_button green" type="submit" value="Login" accesskey="p" name="submit" />
-                </div>
-            </div>
-        </form>
-    <?php endif; ?>
+<div class="smart-wrap">
+	<div class="smart-forms smart-container wrap-3">
+		<form method="post" action="/" id="contact">
+			<div class="form-body">
+
+				<div class="spacer-b30">
+					<div class="tagline">
+						<span>Sign in With </span>
+					</div>
+					<!-- .tagline -->
+				</div>
+
+				<div class="section">
+					<a href="#" class="button btn-social facebook span-left"> <span><i
+							class="fa fa-facebook"></i></span> Facebook
+					</a> <a href="#" class="button btn-social twitter span-left"> <span><i
+							class="fa fa-twitter"></i></span> Twitter
+					</a> <a href="#" class="button btn-social googleplus span-left"> <span><i
+							class="fa fa-google-plus"></i></span> Google+
+					</a>
+				</div>
+				<!-- end section -->
+
+				<div class="spacer-t30 spacer-b30">
+					<div class="tagline">
+						<span> OR Login </span>
+					</div>
+					<!-- .tagline -->
+				</div>
+
+				<div class="section">
+					<label for="username" class="field prepend-icon"> <input
+						type="text" name="username" id="username" class="gui-input"
+						placeholder="Enter username"> <label for="username"
+						class="field-icon"><i class="fa fa-user"></i></label>
+					</label>
+				</div>
+				<!-- end section -->
+
+				<div class="section">
+					<label for="password" class="field prepend-icon"> <input
+						type="text" name="password" id="password" class="gui-input"
+						placeholder="Enter password"> <label for="password"
+						class="field-icon"><i class="fa fa-lock"></i></label>
+					</label>
+				</div>
+				<!-- end section -->
+
+				<div class="section">
+					<label class="switch block"> <input type="checkbox" name="remember"
+						id="remember" checked> <label for="remember" data-on="YES"
+						data-off="NO"></label> <span> Keep me logged in ?</span>
+					</label>
+				</div>
+				<!-- end section -->
+
+			</div>
+			<!-- end .form-body section -->
+			<div class="form-footer">
+				<button type="submit" class="button btn-primary">Sign in</button>
+			</div>
+			<!-- end .form-footer section -->
+		</form>
+
+	</div>
+	<!-- end .smart-forms section -->
 </div>
-<!-- End Login Form -->
+<!-- end .smart-wrap section -->

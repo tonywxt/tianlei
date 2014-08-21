@@ -144,4 +144,4 @@ Class Register Extends AjaxLogin {
         return get_user_by( 'id', $user_id );
     }
 }
-new Register;
+// new Register;

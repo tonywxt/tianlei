@@ -40,7 +40,7 @@ Class Login Extends AjaxLogin {
      * If the user is not logged in we display the hidden jQuery UI dialog containers
      */
     public function footer(){
-        load_template( plugin_dir_path( dirname( __FILE__ ) ) . 'views/login-dialog.php' );
+        // load_template( plugin_dir_path( dirname( __FILE__ ) ) . 'views/login-dialog.php' );
     }
 
 
