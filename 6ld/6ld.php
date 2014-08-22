@@ -8,6 +8,7 @@ Text Domain: 6ld
 Domain Path: /lang/
 */
 
+show_admin_bar(false);
 /**
  * Include our abstract which is a Class of shared Methods for our Classes.
  */
