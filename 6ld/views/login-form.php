@@ -1,11 +1,3 @@
-<?php
-
-/**
- * This is the template for our login form. It should contain as less logic as possible
- */
-wp_enqueue_style ( 'smart-form', plugins_url('../css/smart-forms.css', __FILE__));
-wp_enqueue_style ( 'smart-form-fontawesome', plugins_url('../css/font-awesome.min.css', __FILE__));
-?>
 <div class="smart-wrap">
 	<div class="smart-forms smart-container wrap-3">
 		<form method="post" action="/" id="contact">
