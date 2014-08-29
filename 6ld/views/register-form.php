@@ -1,50 +1,139 @@
 <?php
-
-/**
- * This is the template for our register form. It should contain as less logic as possible
- */
-
+wp_enqueue_script ( 'jquery' );
+wp_enqueue_script ( '6ld-form-validate', plugin_dir_url ( dirname ( __FILE__ ) ) . 'js/jquery.validate.min.js' );
+wp_enqueue_script ( '6ld-addtional-methods', plugin_dir_url ( dirname ( __FILE__ ) ) . 'js/additional-methods.min.js' );
 ?>
 
-<!-- Register Modal -->
-<?php if ( get_option('users_can_register') ) : ?>
-    <div class="ajax-login-register-register-container">
-        <?php if ( is_user_logged_in() ) : ?>
-            <p><?php printf('%s <a href="%s" title="%s">%s</a>', __('You are already registered','ajax_login_register'), wp_logout_url( site_url() ), __('Logout', 'ajax_login_register'), __('Logout', 'ajax_login_register') ); ?></p>
-        <?php else : ?>
-            <form action="javascript://" name="registerform" class="ajax-login-default-form-container register_form <?php print get_option('ajax_login_register_default_style'); ?>">
+<script type="text/javascript">
+		jQuery(function($) {
+				$( "#signupform" ).validate({
+						errorClass: "state-error",
+						validClass: "state-success",
+						errorElement: "em",
+							
+						rules: {
+								username: {
+									required: true
+								},
+								email: {
+									required: true,
+									email: true
+								},
+								password: {
+									required: true
+								},
+								confirmPassword: {
+									required: true,
+									equalTo: "#password"
+							    }			
+						}, // end rules
+						
+						messages:{
+								username: {
+									required: 'Enter your username'
+								},
+								email: {
+									required: 'Enter your email address',
+									email: 'Enter a VALID email address'
+								},
+								password: {
+									required: 'Enter your password'
+								},
+								confirmPassword: {
+									required: 'Confirm your password',
+									equalTo: 'Password not match'
+							    }												
+						}, // end messages
+						
+						highlight: function(element, errorClass, validClass) {
+								$(element).closest('.field').addClass(errorClass).removeClass(validClass);
+						}, // end highlight
+						
+						unhighlight: function(element, errorClass, validClass) {
+								$(element).closest('.field').removeClass(errorClass).addClass(validClass);
+						}, // end unhighlight
+													
+						errorPlacement: function(error, element) {
+								error.insertAfter(element.parent());
+						} // end errorPlacement															
+								
+				}); // end validate	
+		});				
+</script>
 
-                <?php if ( get_option('ajax_login_register_facebook') ) : ?>
-                    <div class="fb-login-container">
-                        <a href="#" class="fb-login"><img src="<?php print plugin_dir_url( dirname( __FILE__ ) ); ?>assets/images/fb-login-button.png" /></a>
-                    </div>
-                <?php endif; ?>
+<div class="smart-wrap">
+	<div class="smart-forms smart-container wrap-3">
+		<form method="post" action="/" id="signupform">
+			<div class="form-body">
+				<div class="spacer-b30">
+					<div class="tagline">
+						<span>User Information</span>
+					</div>
+				</div>
+			
+				<div class="section">
+						<label for="username" class="field prepend-icon"> <input
+							type="text" name="username" id="username" class="gui-input"
+							placeholder="Enter username"> <label for="username" class="field-icon"><i
+								class="fa fa-user"></i></label>
+						</label>
+				</div>
+				<!-- end section -->
+				
+				<div class="section">
+					<label for="email" class="field prepend-icon"> <input type="email"
+						name="email" id="email" class="gui-input"
+						placeholder="Enter email address"> <label for="email"
+						class="field-icon"><i class="fa fa-envelope"></i></label>
+					</label>
+				</div>
+				<!-- end section -->
 
-                <div class="form-wrapper">
-                    <?php
-                    wp_nonce_field( 'facebook-nonce', 'facebook_security' );
-                    wp_nonce_field( 'register_submit', 'security' );
-                    ?>
-                    <div class="ajax-login-register-status-container">
-                        <div class="ajax-login-register-msg-target"></div>
-                    </div>
-                    <div class="noon"><label><?php _e('User Name', 'ajax_login_register'); ?></label><input type="text" required name="login" class="user_login" /></div>
-                    <div class="noon"><label><?php _e('Email', 'ajax_login_register'); ?></label><input type="text" required name="email" class="user_email ajax-login-register-validate-email" /></div>
+				<div class="section">
+					<label for="password" class="field prepend-icon"> <input
+						type="password" name="password" id="password" class="gui-input" placeholder="Create password"> <label
+						for="password" class="field-icon"><i class="fa fa-lock"></i></label>
+					</label>
+				</div>
+				<!-- end section -->
 
-                    <?php do_action( 'zm_ajax_login_register_below_email_field' ); ?>
+				<div class="section">
+					<label for="confirmPassword"
+						class="field prepend-icon"> <input type="password"
+						name="confirmPassword" id="confirmPassword" class="gui-input" placeholder="Confirm password"> <label
+						for="confirmPassword" class="field-icon"><i
+							class="fa fa-unlock-alt"></i></label>
+					</label>
+				</div>
+				<!-- end section -->
 
-                    <div class="noon"><label><?php _e('Password', 'ajax_login_register'); ?></label><input type="password" required name="password" class="user_password" /></div>
-                    <div class="noon"><label><?php _e('Confirm Password', 'ajax_login_register'); ?></label><input type="password" required name="confirm_password" class="user_confirm_password" /></div>
+				<!-- div class="section">
+					<label for="verify" class="field-label">Prove you're not a robot </label>
+					<div class="smart-widget sm-left sml-80">
+						<label for="verify" class="field prepend-icon"> <input type="text"
+							name="verify" id="verify" class="gui-input"
+							placeholder="Enter captcha"> <label for="verify"
+							class="field-icon"><i class="fa fa-shield"></i></label>
+						</label> <label for="verify" class="button">4 + 12</label>
+					</div>
+				</div>
+				
+				<div class="section">
+					<label class="option"> <input type="checkbox" name="check1"><span
+						class="checkbox"></span> Agree to our <a href="#"
+						class="smart-link"> terms of service </a>
+					</label>
+				</div -->
 
-                    <div class="noon"><a href="#" class="already-registered-handle"><?php echo apply_filters( 'ajax_login_register_already_registered_text', __('Already registered?','ajax_login_register') ); ?></a></div>
-                    <div class="button-container">
-                        <input class="register_button green" type="submit" value="<?php _e('Register','ajax_login_register'); ?>" accesskey="p" name="register" disabled />
-                    </div>
-                </div>
-            </form>
-        <?php endif; ?>
-    </div>
-<?php else : ?>
-    <p><?php _e('Registration is currently closed.','ajax_login_register'); ?></p>
-<?php endif; ?>
-<!-- End 'modal' -->
+			</div>
+			<!-- end .form-body section -->
+			<div class="form-footer">
+				<button type="submit" class="button btn-primary">Create Account</button>
+			</div>
+			<!-- end .form-footer section -->
+		</form>
+
+	</div>
+	<!-- end .smart-forms section -->
+</div>
+<!-- end .smart-wrap section -->
